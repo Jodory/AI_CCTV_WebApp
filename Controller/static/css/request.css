@@ -1,0 +1,56 @@
+body{
+    height: 40%;
+    width: 80%;
+}
+#myform {
+        width: 700px;
+        top:45%;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 5px;
+        position: relative;
+        left:40%
+}
+
+@media (max-width: 1024px) {
+    #myform {
+        top:55%;
+        position: relative;
+    }
+    body{
+        width: 40%;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    #myform {
+        width: 90%;
+        max-width: 700px;
+        top:60%;
+        position: relative;
+        left: 5%;
+    }
+    body{
+        width: 100%;
+    }
+    .flatpickr-wrapper {
+        position: relative;
+    }
+
+}
+
+/* 법적고지 글자색 */
+#openModal {
+    color: black;
+    text-decoration-color: black;
+}
+strong {
+    font-weight: bolder;
+    color: black;
+}
+
+/* Reset the position of the flatpicker's time picker window */
+.flatpickr-time {
+    top: auto !important;
+}

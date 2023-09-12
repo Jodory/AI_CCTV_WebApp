@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="utf-8">
+<head>
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>CCTV 동작 감시 모자이크</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
+
+    <!-- Bootstrap Icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- SimpleLightbox plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+
+    <!-- flatpicker (Timepicker) JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel ="stylesheet" href ="{{ url_for('static', filename='css/styles.css') }}"/>
+    <link rel ="stylesheet" href ="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+
+
+
+    <!-- jquery_inlcude -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- 사용자CSS -->
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Location.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/law.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/request.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+
+    <style>
+
+        .time-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-select-sm {
+            width: 105px;
+        }
+
+        .flatpickr-calendar {
+            width: 100% !important;
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <!--flash를 위한 구문-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{messages[-1]}}")
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <!-- 네비게이션바-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">{% include 'nav.html' %}</nav>
+
+    <!-- 메인컨텐츠 -->
+        <!--법적 고지 모달 -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">법적 고지 및 약관</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>1. 법적 고지</h5><br>
+                            <p>- 정보주체는 영상정보처리기기 운영자가 처리하는 개인
+                                영상정보에 대하여 열람, 존재확인을 해당 영상정보
+                                처리기기 운영자에게 요구할 수 있습니다.
+                            <p>- 이 경우 정보주체가 열람, 존재확인을 요구할 수 있는
+                                 개인영상 정보는 <strong style="color:Tomato;">정보주체 자신이 촬영된 개인영상정보</strong> 및
+                                 <strong style="color:Tomato;">명백히 정보주체의 급박한 생명, 신체, 재산의 이익을 위하여 필요한 개인영상정보</strong>에 한합니다.
+                            <p>- 공공기관에 대한 열람, 존재확인요구는 “개인영상정보 열람․존재 확인 청구서(전자문서를 포함한다)”로 하여야 합니다.
+                            <p>- 열람, 존재확인 요구를 받았을 때에는 <strong style="color:Tomato;">열람, 존재확인 요구를 한 자가 본인이거나 정당한 대리인인지를
+                               신분증명서(주민등록증, 운전면허증, 여권 등)를 제출받아 확인하고</strong>, 지체없이 필요한 조치를 취하여야 합니다.
+                            <p>- 각종 범법행위(절도, 폭행 등) 또는 사고(차량파손, 교통사고 등)의 확인 등을 목적으로 개인이 영상자료의 열람, 제공을 요청하는 경우에는 이를 열람, 제공할 수 없습니다.
+                        <p>- 다만, <strong style="color:Tomato;">범죄의 수사와 공소의 제기 및 유지를 위하여 필요한 경우</strong> 또는 <strong style="color:Tomato;">법원의 재판업무 수행을 위하여 필요한 경우</strong>에는 이를 열람, 제공할 수 있습니다.<br><br>
+                        <h5>2. 약관</h5><br>
+                        <p>- 본 사용자는 해당 법적 고지를 이해하고 위반하지 않겠음을 동의해야 합니다. <br><br>
+{#                        <h5>3. 테스트</h5>#}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.getElementById('terms').checked = true">확인</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.getElementById('terms').checked = false">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- 컨텐츠 표시 -->
+            <div id="myform" class="text-center bg-light text-dark bg-opacity-100 d-inline-block" >
+            <div class="m-3 p-3">
+                <h4 class="mb-3">영상 신청</h4><hr>
+                <form id="form" name="form" class="request needs-validation" action="/videoRequest" method="POST" target="_blank" novalidate>
+                    <div class="form-group ">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cameraName"><strong>카메라ID 및 위치</strong></label>
+{#                                <input id="cameraName" name="cameraName" type="text" class="form-control is-valid" value="{{ cameraName }}" readonly required>#}
+                                &nbsp;
+                                <input id="cameraName" name="cameraName" type="text" class="form-control is-valid" value="esqure_01" readonly required> <!-- 로컬용  -->
+                                <button class="btn btn-primary btn-lg btn-block" name = "getLocationBtn" id="getLocationBtn" type="button" onclick="getLocation()">위치정보수집동의</button>
+                                <input type="hidden" id="location" name="location" placeholder="Location will appear here" readonly>
+
+                                <div class="invalid-feedback">
+                                    카메라ID나 위치가 올바르지 않습니다
+                                </div>
+                                <input type="hidden" id="prev" name="prev" value={{ prev }}>
+                                <input type="hidden" id="cameraName" name="cameraName" value={{ cameraName }}>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="startDay"><strong>원하는 날짜</strong></label>
+                                <input id="startDay" class="form-control is-valid" type="date" name="startDay" max="today" min="today" required>
+                                <div class="invalid-feedback">
+                                    날짜를 입력해주세요
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <label for="part" class="form-check-label form-check-inline m-0"><strong>열람 사유 &nbsp; &nbsp;</strong></label>
+                                    <select class="form-select form-select-sm" size="1" id="part" name = "part" required>
+                                        <option selected disabled value="">목적</option>
+                                        <option value="Personal">개인</option>
+                                        <option value="Public">공무</option>
+                                    </select>
+                                </div>
+                                <textarea name="partText" id="partText" style="width: 100%; max-width: 100%;" rows="5" placeholder="간단히 적어주세요."></textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="wantTime" class="form-check-label"><strong>원하는 시간</strong></label>
+                                <div class="time-container-1">
+                                    <input type="text" id="wantTime_s" name="wantTime_s" class="form-control" placeholder="시작시간 입력" data-input required>
+                                </div>
+                                <div class="time-container-2">
+                                    <input type="text" id="wantTime_e" name="wantTime_e" class="form-control" placeholder="종료시간 입력" data-input required>
+                                </div>
+                                <div id="passwordHelpBlock" class="form-text">
+                                    ex) 영상의 1시간 지점부터 2시간 지점까지
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="terms" class="form-check-label"><a data-toggle="modal"  id="myLink"><strong>법적 고지 및 약관 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></a></label>
+                            <input id="terms" class="form-check-input" type="radio" name="terms" value="O" required>&nbsp;동의함<br>
+                        </div>
+                        <hr>
+                        <div class="mb-4">
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name = "button">제출</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+    <!-- 사용자 JS -->
+    <script src="{{ url_for('static', filename='js/law.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/request.js') }}"></script>
+
+    <!-- flatpicker (Timepicker) JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</body>
+</html>

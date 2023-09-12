@@ -1,0 +1,44 @@
+#myform {
+        width: 120%;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 5px;
+        padding: 20px;
+        top: 100px;
+        position: relative;
+        left: 10%;
+        text-align: center;
+}
+body{
+    width: 70%;
+    height: 70%;
+}
+.sort{
+    position: relative;
+    top: 30%;
+    left:33%;
+}
+.margin {
+    height: 300px;
+}
+
+@media (max-width: 1024px) {
+    #myform {
+        top:30%;
+        position: relative;
+    }
+
+}
+
+@media (max-width: 768px) {
+    #myform {
+        width: 90%;
+        max-width: 700px;
+        top:40%;
+        position: relative;
+        left: 5%;
+    }
+    body{
+        width: 100%;
+    }
+
+}
